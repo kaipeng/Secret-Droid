@@ -27,7 +27,7 @@ public class DummyContent {
         // Add 3 sample items.
         addItem(new DummyItem("1", "Item Uno"));
         addItem(new DummyItem("2", "Item Er"));
-        addItem(new DummyItem("3", "Item Three"));
+        addItem(new DummyItem("3", "Camera"));
     }
 
     private static void addItem(DummyItem item) {
