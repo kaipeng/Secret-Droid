@@ -21,8 +21,10 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.location" />
+     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    
     
     
     <application
@@ -46,12 +48,15 @@
                 <!-- Holds the ContentFragment for small/normal screens -->
         <activity android:name=".ContentActivity" />
 
-        <!-- Camera Sample -->
-        <activity android:name=".CameraActivity"
-            android:label="@string/camera_sample"
-        />
-      
-    
+		<activity
+            android:name=".camera.CameraActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".camera.PhotoActivity"
+            android:label="@string/app_name" />
+        
         <activity
             android:name="com.secretlabs.secret.LoginActivity"
             android:label="@string/app_name"

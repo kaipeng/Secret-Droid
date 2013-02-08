@@ -3,11 +3,9 @@
 
     <string name="app_name">Secret</string>
     <string name="title_item_detail">Item Detail</string>
-    <string name="switch_camera">Switch camera</string>
+
+
     
-    
-    <string name="camera_sample">Camera Example</string>
-    <string name="clip_label">Clip Label</string>
 
     <string name="app_widget_name">Honeycomb Example Widget</string>
     <string name="widget_empty_view_text">Touch to show data</string>
@@ -16,7 +14,7 @@
 
     <string name="photo_selection_cab_title">Photo selection</string>
 
-    <!-- Menu strings -->
+<!-- Menu strings -->
     <string name="share">Share</string>
     <string name="camera">Camera</string>
     <string name="toggle_titles">Toggle Titles</string>
@@ -25,5 +23,13 @@
     <string name="basic_notification">Show a basic notification</string>
     <string name="custom_notification">Show a custom notification</string>
     <string name="switch_camera">Switch camera</string>
+    
+    
+    
+<!-- Camera Strings -->
+    <string name="toast_error_camera_preview">Can\'t initialize camera preview.</string>
+    <string name="toast_error_save_picture">Can\'t save picture on external storage.</string>
+    <string name="content_description_take_picture">Take picture</string>
+    <!-- Camera Strings -->
 
 </resources>

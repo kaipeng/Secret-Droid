@@ -1,6 +1,9 @@
 package com.secretlabs.secret;
 
+import com.parse.LogInCallback;
+import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseUser;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -11,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -110,9 +114,24 @@ public class LoginActivity extends Activity {
 	 * errors are presented and no actual login attempt is made.
 	 */
 	public void attemptFacebookLogin() {
-		//ParseFacebookUtils.logIn(permissions, activity, callback);
-        Intent loginIntent = new Intent(this, ItemListActivity.class);
-        startActivity(loginIntent);
+		
+		ParseFacebookUtils.logIn(this, new LogInCallback() {
+			  @Override
+			  public void done(ParseUser user, ParseException err) {
+			    if (user == null) {
+			      Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
+			    } else if (user.isNew()) {
+			      Log.d("MyApp", "User signed up and logged in through Facebook!");
+			    } else {
+			      Log.d("MyApp", "User logged in through Facebook!");
+			    }
+			  }
+			});
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	  super.onActivityResult(requestCode, resultCode, data);
+	  ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
 	}
 	
 	/**

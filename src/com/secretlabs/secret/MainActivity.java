@@ -16,6 +16,11 @@
 
 package com.secretlabs.secret;
 
+import com.parse.Parse;
+import com.parse.ParseFacebookUtils;
+import com.parse.ParseUser;
+import com.secretlabs.secret.camera.CameraActivity;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -52,6 +57,8 @@ import android.widget.RemoteViews;
  * activity displays only the TitlesFragment. In which case, selecting a list
  * item opens the ContentActivity, holds only the ContentFragment. */
 public class MainActivity extends Activity implements TitlesFragment.OnItemSelectedListener {
+	public static final int LOGIN_REQUEST_CODE = 99;
+	public static final int LOGIN_RESULT_SUCCESS = 100;
 
     private Animator mCurrentTitlesAnimator;
     private String[] mToggleLabels = {"Show Titles", "Hide Titles"};
@@ -62,8 +69,35 @@ public class MainActivity extends Activity implements TitlesFragment.OnItemSelec
     private boolean mTitlesHidden = false;
 
     @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data){
+    	if(resultCode == LOGIN_RESULT_SUCCESS){
+    		return;
+    	}
+    	else{
+    		//Tell user to login again
+    	}
+    }
+    
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        //Parse Setups
+        ParseFacebookUtils.initialize("1689168524555469");
+        Parse.initialize(this, "tM2CdZHRTY3h1IAO6V5Jvx302QZ2tOwc2pTP3OcJ", "iu0a3ad7xECja3UTI5a5UAutK1yikgX06V475YcW"); 
+        
+        ParseUser.logOut();
+
+        //Check -- User logged in?
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+          // do stuff with the user
+        } else {
+          // show the sign up or login screen
+            Intent loginIntent = new Intent(this, LoginActivity.class);
+            startActivityForResult(loginIntent, LOGIN_REQUEST_CODE);
+        }
+        
 
         if(savedInstanceState != null) {
             if (savedInstanceState.getInt("theme", -1) != -1) {
@@ -76,7 +110,7 @@ public class MainActivity extends Activity implements TitlesFragment.OnItemSelec
         setContentView(R.layout.main);
 
         ActionBar bar = getActionBar();
-        bar.setDisplayShowTitleEnabled(false);
+        bar.setDisplayShowTitleEnabled(true);
 
         ContentFragment frag = (ContentFragment) getFragmentManager()
                 .findFragmentById(R.id.content_frag);
